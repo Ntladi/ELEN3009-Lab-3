@@ -23,6 +23,7 @@ TEST_CASE("Valid Date is initialised correctly") {
 	CHECK(heritage_day.day() == 24);
 	CHECK(heritage_day.month() == Month::September);
 	CHECK(heritage_day.year() == 2000);
+
 }
 
 
@@ -31,6 +32,45 @@ TEST_CASE("Valid Date is initialised correctly") {
 // verify that an exception is thrown when an attempt is made
 // to construct an invalid date. Think carefully about which
 // invalid dates to test.
+TEST_CASE("A zero date is invalid")
+{
+	CHECK_THROWS_AS(Date(0, Month::January, 2000), InvalidDate);
+}
+
+TEST_CASE("A negative date is invalid")
+{
+	CHECK_THROWS_AS(Date(-4, Month::February, 2000), InvalidDate);
+}
+
+TEST_CASE("The 29th or higher of February on a non leap year is invalid")
+{
+	CHECK_THROWS_AS(Date(29, Month::February, 2001), InvalidDate);
+	CHECK_NOTHROW(Date(29, Month::February, 2000));
+}
+
+TEST_CASE("The 30th or higher of February is invalid")
+{
+	CHECK_THROWS_AS(Date(30, Month::February, 2000), InvalidDate);
+}
+
+TEST_CASE("The 31st or higher of some months is invalid")
+{
+	CHECK_THROWS_AS(Date(31, Month::April, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(31, Month::June, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(31, Month::September, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(31, Month::November, 2000), InvalidDate);
+}
+
+TEST_CASE("The 32nd or higher of all months is invalid")
+{
+	CHECK_THROWS_AS(Date(32, Month::January, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(32, Month::March, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(32, Month::May, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(32, Month::July, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(32, Month::August, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(32, Month::October, 2000), InvalidDate);
+	CHECK_THROWS_AS(Date(32, Month::December, 2000), InvalidDate);
+}
 
 
 // Exercise 2.3
