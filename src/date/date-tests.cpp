@@ -74,17 +74,65 @@ TEST_CASE("The 32nd or higher of all months is invalid")
 
 
 // Exercise 2.3
-//TEST_CASE("Identical Dates are Equal") {
-//    auto date_1 = Date{1, Month::January, 2000};
-//    auto date_2 = Date{1, Month::January, 2000};
-//
-//    CHECK(date_1 == date_2);
-//}
+TEST_CASE("Identical Dates are Equal") {
+    auto date_1 = Date{1, Month::January, 2000};
+    auto date_2 = Date{1, Month::January, 2000};
+
+    CHECK(date_1 == date_2);
+}
 
 // Supply at least three additional tests for
 // the equality operator here, to ensure that
 // it is working correctly.
 
+TEST_CASE("Dates where days are equal while the months and years are not, aren't equal")
+{
+	auto date_1 = Date{2, Month::January, 2000};
+	auto date_2 = Date{2, Month::February, 2001};
+	CHECK_FALSE(date_1 == date_2);
+}
+
+TEST_CASE("Dates where days are not equal while the months and years are, aren't equal")
+{
+	auto date_1 = Date{3, Month::March, 2002};
+	auto date_2 = Date{4, Month::March, 2002};
+	CHECK_FALSE(date_1 == date_2);
+}
+
+TEST_CASE("Dates where months are equal while the days and years are not, aren't equal")
+{
+	auto date_1 = Date{5, Month::April, 2003};
+	auto date_2 = Date{6, Month::April, 2004};
+	CHECK_FALSE(date_1 == date_2);
+}
+
+TEST_CASE("Dates where months are not equal while the days and years are, aren't equal")
+{
+	auto date_1 = Date{7, Month::May, 2005};
+	auto date_2 = Date{7, Month::June, 2005};
+	CHECK_FALSE(date_1 == date_2);
+}
+
+TEST_CASE("Dates where years are equal while the days and months are not, aren't equal")
+{
+	auto date_1 = Date{8, Month::July, 2006};
+	auto date_2 = Date{9, Month::August, 2006};
+	CHECK_FALSE(date_1 == date_2);
+}
+
+TEST_CASE("Dates where years are not equal while the days and months are, aren't equal")
+{
+	auto date_1 = Date{10, Month::September, 2007};
+	auto date_2 = Date{10, Month::September, 2008};
+	CHECK_FALSE(date_1 == date_2);
+}
+
+TEST_CASE("Dates where everything is different are not equal")
+{
+	auto date_1 = Date{11, Month::October, 2009};
+	auto date_2 = Date{12, Month::November, 2010};
+	CHECK_FALSE(date_1 == date_2);
+}
 
 // Exercise 2.4
 // Provide tests for a new member function of the Date class

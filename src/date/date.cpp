@@ -62,6 +62,18 @@ int Date::daysInMonth() const
 	}    
 }
 
+bool Date::operator==(const Date& rhs) const
+{
+	if(this->day_ != rhs.day_)
+		return false;
+	if(this->month_ != rhs.month_)
+		return false;
+	if(this->year_ != rhs.year_)
+		return false;
+
+	return true;
+}
+
 // Note, this standalone function is not part of the Date class
 void printDate(const Date& date)
 {
