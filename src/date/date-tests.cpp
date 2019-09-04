@@ -137,7 +137,59 @@ TEST_CASE("Dates where everything is different are not equal")
 // Exercise 2.4
 // Provide tests for a new member function of the Date class
 // which will increase the date by one day.
+TEST_CASE("On a regular day, only the day increments")
+{
+	auto date_1 = Date{12, Month::July, 2011};
+	date_1.increment();
+	CHECK(date_1.day() == 13);
+	CHECK(date_1.month() == Month::July);
+	CHECK(date_1.year() == 2011);
+}
 
+TEST_CASE("If it's the end of February and not a leap year, the day resets and the month increments")
+{
+	auto date_1 = Date{28, Month::February, 2013};
+	date_1.increment();
+	CHECK(date_1.day() == 1);
+	CHECK(date_1.month() == Month::March);
+	CHECK(date_1.year() == 2013);
+}
+
+TEST_CASE("If it's the end of February and a leap year, the day resets and the month increments")
+{
+	auto date_1 = Date{29, Month::February, 2000};
+	date_1.increment();
+	CHECK(date_1.day() == 1);
+	CHECK(date_1.month() == Month::March);
+	CHECK(date_1.year() == 2000);
+}
+
+TEST_CASE("If it's the end of a month with 31 days, the day resets and the month increments")
+{
+	auto date_1 = Date{31, Month::March, 2014};
+	date_1.increment();
+	CHECK(date_1.day() == 1);
+	CHECK(date_1.month() == Month::April);
+	CHECK(date_1.year() == 2014);
+}
+
+TEST_CASE("If it's the end of a month with 30 days, the day resets and the month increments")
+{
+	auto date_1 = Date{30, Month::June, 2015};
+	date_1.increment();
+	CHECK(date_1.day() == 1);
+	CHECK(date_1.month() == Month::July);
+	CHECK(date_1.year() == 2015);
+}
+
+TEST_CASE("If it's the end of the year, the year and month resets and the year increments")
+{
+	auto date_1 = Date{31, Month::December, 2016};
+	date_1.increment();
+	CHECK(date_1.day() == 1);
+	CHECK(date_1.month() == Month::January);
+	CHECK(date_1.year() == 2017);
+}
 
 // Exercise 2.5
 // Write tests for the new default constructor and the

@@ -39,6 +39,8 @@ public:
 	bool isLeapYear () const;	
 	// overload operator in order to compare dates
 	bool operator==(const Date& rhs) const;
+	// increment the date by one day
+	void increment();
 
 private:
 	// return the number of days in the month_
