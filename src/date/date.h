@@ -27,8 +27,11 @@ class InvalidDate{};
 
 class Date
 {
-public:	
+public:
+	// parameterized Constructor
 	Date(int day, Month month, int year);
+	// new default constructor
+	Date();
 	// return the day of the month
 	int	day () const;
 	// return the month of the year
@@ -41,6 +44,11 @@ public:
 	bool operator==(const Date& rhs) const;
 	// increment the date by one day
 	void increment();
+	// change the default date if needed
+	static void setDefaultDate(int day, Month month, int year){
+		default_ = Date{day, month, year};
+	}
+
 
 private:
 	// return the number of days in the month_
@@ -49,6 +57,9 @@ private:
 	int	day_;
 	Month month_;
 	int	year_;
+
+	// the default date is stored here
+	static Date default_;
 
 };
 

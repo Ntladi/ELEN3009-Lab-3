@@ -194,3 +194,46 @@ TEST_CASE("If it's the end of the year, the year and month resets and the year i
 // Exercise 2.5
 // Write tests for the new default constructor and the
 // setDefaultDate method.
+
+TEST_CASE("The default constructor sets the date to the correct default value")
+{
+	auto date_1 = Date();
+
+	CHECK(date_1.day() == 13);
+	CHECK(date_1.month() == Month::November);
+	CHECK(date_1.year() == 1998);
+}
+
+TEST_CASE("The default date can be changed")
+{
+	Date::setDefaultDate(9, Month::March, 1969);
+
+	auto date_1 = Date();
+
+	CHECK(date_1.day() == 9);
+	CHECK(date_1.month() == Month::March);
+	CHECK(date_1.year() == 1969);
+}
+
+TEST_CASE("Changing the default date does not change the parameters of objects already instantiated with the parameterized constructor")
+{
+	Date::setDefaultDate(7, Month::September, 2001);
+	auto date_1 = Date(24, Month::March, 1965);
+
+
+	CHECK(date_1.day() == 24);
+	CHECK(date_1.month() == Month::March);
+	CHECK(date_1.year() == 1965);
+}
+
+TEST_CASE("Changing the default date does not change the parameters of objects already instantiated with the default constructor")
+{
+	Date::setDefaultDate(13, Month::November, 1998);
+	auto date_1 = Date();
+	Date::setDefaultDate(21, Month::February, 1999);
+
+	CHECK(date_1.day() == 13);
+	CHECK(date_1.month() == Month::November);
+	CHECK(date_1.year() == 1998);
+
+}

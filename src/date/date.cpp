@@ -11,6 +11,13 @@ Date::Date(int day, Month month, int year): day_{day}, month_{month}, year_{year
 		throw InvalidDate {};
 }
 
+Date::Date()
+{
+	this->day_ = default_.day();
+	this->month_ = default_.month();
+	this->year_ = default_.year();
+}
+
 int Date::day() const
 {
 	return day_;
@@ -106,3 +113,4 @@ void printDate(const Date& date)
 		<< endl;
 }
 
+Date Date::default_{13, Month::November, 1998};
