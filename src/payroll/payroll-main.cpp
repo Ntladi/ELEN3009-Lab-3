@@ -49,3 +49,8 @@ int main()
 	return 0;
 }
 
+// The print function that is called for the second batch of workers is the one defined in the Employee class
+// not the one defined in FixedRateWorker and HourlyWorker respectively.
+
+// The print function in Employee must be virtual and the print functions in FixedRateWorker and HourlyWorker
+// must be overridden in order for the functionality to work as expected.

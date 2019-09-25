@@ -3,6 +3,21 @@
 
 #include "date.h"
 
+Date::Date(int day, Month month, int year): day_{day}, month_{month}, year_{year}
+{
+	if(day_ <=0)
+		throw InvalidDate {};
+	if(day_ > daysInMonth())
+		throw InvalidDate {};
+}
+
+Date::Date()
+{
+	this->day_ = default_.day();
+	this->month_ = default_.month();
+	this->year_ = default_.year();
+}
+
 int Date::day() const
 {
 	return day_;
@@ -54,6 +69,40 @@ int Date::daysInMonth() const
 	}    
 }
 
+bool Date::operator==(const Date& rhs) const
+{
+	if(this->day_ != rhs.day_)
+		return false;
+	if(this->month_ != rhs.month_)
+		return false;
+	if(this->year_ != rhs.year_)
+		return false;
+
+	return true;
+}
+
+void Date::increment()
+{
+	day_++;
+
+	if(day_ > daysInMonth())
+	{
+		if(month_ != Month::December)
+		{
+			day_ = 1;
+			int newMonth = static_cast<int>(month_);
+			newMonth++;
+			month_ = static_cast<Month>(newMonth);
+		}
+		else if(month_ == Month::December)
+		{
+			day_ = 1;
+			month_ = Month::January;
+			year_++;
+		}
+	}
+}
+
 // Note, this standalone function is not part of the Date class
 void printDate(const Date& date)
 {
@@ -64,3 +113,4 @@ void printDate(const Date& date)
 		<< endl;
 }
 
+Date Date::default_{13, Month::November, 1998};

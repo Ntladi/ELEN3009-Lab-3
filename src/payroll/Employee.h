@@ -15,7 +15,7 @@ public:
    string surname() const;					// non-virtual
    
    virtual double earnings() const = 0;		// pure virtual
-   void print() const;						// non-virtual
+   virtual void print() const;						// non-virtual
 
 private:
    string first_name_;
